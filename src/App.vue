@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style>
-/* html {
-    background-color: #484848;
-} */
+body {
+    margin: 0;
+}
 </style>

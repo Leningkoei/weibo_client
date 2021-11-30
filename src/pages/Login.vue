@@ -1,26 +1,46 @@
 <template>
-    <div class = "login">
-        <el-form
-            label-width = '100px'
-        >
-            <el-form-item
-                label = 'Username'
+    <div class = 'login-page'>
+        <div class = 'login'>
+            <div id = 'logo'>
+                <div id = 'weibo-block'>
+                    <span id = 'weibo'>Wibo</span>
+                </div>
+                <div id = 'pachong-block'>
+                    <span id = 'pachong'>pcn</span>
+                </div>
+            </div>
+            <el-form
+                label-width = '100px'
             >
-                <el-input
-                    v-model = 'username'
-                />
-            </el-form-item>
-            <el-form-item
-                label = 'Password'
-            >
-                <el-input
-                    v-model = 'password'
-                />
-            </el-form-item>
-            <el-button
-                @click = 'login'
-            >Submit</el-button>
-        </el-form>
+                <el-form-item
+                    label = 'Username'
+                >
+                    <el-input
+                        v-model = 'username'
+                    />
+                </el-form-item>
+                <el-form-item
+                    label = 'Password'
+                >
+                    <el-input
+                        type = 'password'
+                        v-model = 'password'
+                    />
+                </el-form-item>
+                <el-form-item>
+                    <el-button
+                        type = 'primary'
+                        @click = 'submitForm'
+                    >Submit</el-button>
+                    <el-button
+                        type = 'warning'
+                        icon = 'el-icon-delete'
+                        circle
+                        @click = 'resetForm'
+                    />
+                </el-form-item>
+            </el-form>
+        </div>
     </div>
 </template>
 
@@ -36,7 +56,7 @@ export default {
         }
     },
     methods: {
-        login() {
+        submitForm() {
             // axios({
             //     method: 'post',
             //     url: 'http://192.168.43.253:2048/login',
@@ -59,21 +79,85 @@ export default {
             //     }
             // )
 
-            //#region  login succeed
+            //#region login succeed
             console.log(this.$router)
             localStorage.setItem('loginState', true)
-            this.$router.push({
-                name: 'main',
+            this.$router.replace({
+                name: 'main'
             })
             //#endregion
+        },
+        resetForm() {
+            this.username = ''
+            this.password = ''
         }
     }
 }
 </script>
 
 <style lang = 'less' scoped>
-.login {
-    width: fit-content;
-    margin: 0 auto;
+.login-page {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url(../assets/background.png);
+    /deep/ .login {
+        margin: -28vh auto 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: rgba(219, 223, 238, 0.32);
+        border-radius: 4px;
+        /* opacity: 0.64; */
+        box-shadow:
+            inset 0 16px 4px 4px rgba(219, 223, 238, 0.32),
+            0 16px 4px 4px rgba(0, 0, 0, 0.04);
+        #logo {
+            height: 90px;
+            width: 100px;
+            margin: 32px auto 32px auto;
+            padding-bottom: 10px;
+            border-radius: 4px;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #000000;
+            opacity: 0.8;
+            #weibo-block {
+                top: -5px;
+                text-align: center;
+                #weibo {
+                    color: #ffffff;
+                    font-size: 24px;
+                    font-weight: 900;
+                    font-family: Arial, Helvetica, sans-serif;
+                }
+            }
+            #pachong-block {
+                text-align: center;
+                #pachong {
+                    padding: 0 10px 6px 10px;
+                    background-color: #ff9900;
+                    border-radius: 4px;
+                    font-size: 24px;
+                    font-weight: 900;
+                    font-family: Arial, Helvetica, sans-serif;
+                }
+            }
+        }
+        .el-form {
+            padding-right: 32px;
+            .el-input {
+                input {
+                    background-color: rgba(219, 223, 238, 0.16);
+                }
+            }
+            .el-button {
+                opacity: 0.8;
+            }
+        }
+    }
 }
 </style>

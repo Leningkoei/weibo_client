@@ -2,7 +2,7 @@ import VueRouter from 'vue-router'
 import Login from '../pages/Login.vue'
 import Main from '../pages/Main.vue'
 
-export default new VueRouter({
+const router = new VueRouter({
     routes: [
         {
             name: 'login',
@@ -16,3 +16,9 @@ export default new VueRouter({
         }
     ]
 })
+
+router.afterEach((to) => {
+    document.title = to.name
+})
+
+export default router
