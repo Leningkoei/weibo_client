@@ -11,14 +11,18 @@ export default {
     components: {
     },
     beforeCreate() {
-        if (localStorage.getItem("loginState")) {
-            this.$router.replace({
-                name: 'main'
-            })
+        if (localStorage.getItem('loginState')) {
+            if (this.$route.name !== 'main') {
+                this.$router.replace({
+                    name: 'main'
+                })
+            }
         } else {
-            this.$router.replace({
-                name: 'login'
-            })
+            if (this.$route.name !== 'login') {
+                this.$router.replace({
+                    name: 'login'
+                })
+            }
         }
     }
 };

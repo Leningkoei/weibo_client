@@ -80,8 +80,8 @@ export default {
             // )
 
             //#region login succeed
-            console.log(this.$router)
-            localStorage.setItem('loginState', true)
+            localStorage.setItem('loginState', 'true')
+            localStorage.setItem('username', this.username)
             this.$router.replace({
                 name: 'main'
             })
@@ -151,7 +151,7 @@ export default {
             padding-right: 32px;
             .el-input {
                 input {
-                    background-color: rgba(219, 223, 238, 0.16);
+                    background-color: rgba(255, 255, 255, 0.16);
                 }
             }
             .el-button {
