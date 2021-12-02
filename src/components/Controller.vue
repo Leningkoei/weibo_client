@@ -1,28 +1,30 @@
 <template>
     <div class = 'controller'>
-        <el-input
-            class = 'input-with-select'
-            placeholder = 'keyword'
-            v-model = 'keyword'
-        >
-            <el-select
-                slot = 'append'
-                placeholder = 'refresh break'
-                :disabled = 'selectIsDisabled'
-                v-model = 'refreshBreak'
+        <div class = 'input'>
+            <el-input
+                class = 'input-with-select'
+                placeholder = 'keyword'
+                v-model = 'keyword'
             >
-                <el-option
-                    label = '1s'
-                    :value = '1'
-                ></el-option>
-                <el-option
-                    label = '2s'
-                    :value = '2'
+                <el-select
+                    slot = 'append'
+                    placeholder = 'refresh break'
+                    :disabled = 'selectIsDisabled'
+                    v-model = 'refreshBreak'
                 >
-                </el-option>
-            </el-select>
-        </el-input>
-        <transition-group
+                    <el-option
+                        label = '1s'
+                        :value = '1'
+                    ></el-option>
+                    <el-option
+                        label = '2s'
+                        :value = '2'
+                    >
+                    </el-option>
+                </el-select>
+            </el-input>
+        </div>
+        <!-- <transition-group
             appear
             name = 'animate__animated animate__bounce'
             enter-active-class = 'animate__rubberBand'
@@ -94,15 +96,21 @@
         <el-time-picker
             readonly
             :value = 'time'
-        ></el-time-picker>
+        ></el-time-picker> -->
+        <Handset/>
     </div>
 </template>
 
 <script>
 import 'animate.css'
 
+import Handset from './Handset.vue'
+
 export default {
     name: 'Controller',
+    components: {
+        Handset
+    },
     data() {
         return {
             keyword: '',
@@ -185,10 +193,12 @@ export default {
 
 <style lang = 'less' scoped>
 .controller {
-    margin: 32px;
-    /deep/ .el-input {
-        .el-select {
-            width: 144px;
+    /deep/ .input {
+        margin: 32px;
+        .el-input {
+            .el-select {
+                width: 144px;
+            }
         }
     }
 }

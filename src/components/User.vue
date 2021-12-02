@@ -61,6 +61,7 @@ export default {
 
 <style lang = 'less' scoped>
 .user {
+    height: 144px;
     margin: 32px;
 }
 </style>
