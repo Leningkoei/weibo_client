@@ -31,6 +31,9 @@ export default {
     mutations: {
         INSERT(state, value) {
             state.tableData.push(value)
+        },
+        CLEAR(state) {
+            state.tableData = []
         }
     },
     state: {

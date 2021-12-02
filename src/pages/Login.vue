@@ -1,14 +1,20 @@
 <template>
     <div class = 'login-page'>
         <div class = 'login'>
-            <div id = 'logo'>
-                <div id = 'weibo-block'>
-                    <span id = 'weibo'>Wibo</span>
+            <transition
+                appear
+                name = 'animate__animated animate__bounce'
+                enter-active-class="animate__flip"
+            >
+                <div id = 'logo'>
+                    <div id = 'weibo-block'>
+                        <span id = 'weibo'>Wibo</span>
+                    </div>
+                    <div id = 'pachong-block'>
+                        <span id = 'pachong'>pcn</span>
+                    </div>
                 </div>
-                <div id = 'pachong-block'>
-                    <span id = 'pachong'>pcn</span>
-                </div>
-            </div>
+            </transition>
             <el-form
                 label-width = '100px'
             >
@@ -45,6 +51,8 @@
 </template>
 
 <script>
+import 'animate.css'
+
 // import axios from 'axios'
 
 export default {
@@ -110,7 +118,6 @@ export default {
         justify-content: center;
         background-color: rgba(219, 223, 238, 0.32);
         border-radius: 4px;
-        /* opacity: 0.64; */
         box-shadow:
             inset 0 16px 4px 4px rgba(219, 223, 238, 0.32),
             0 16px 4px 4px rgba(0, 0, 0, 0.04);
