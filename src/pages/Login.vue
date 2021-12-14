@@ -51,9 +51,8 @@
 </template>
 
 <script>
-import 'animate.css'
-
-// import axios from 'axios'
+import axios from 'axios'
+import config from "../config.js"
 
 export default {
     name: 'Login',
@@ -65,35 +64,29 @@ export default {
     },
     methods: {
         submitForm() {
-            // axios({
-            //     method: 'post',
-            //     url: 'http://192.168.43.253:2048/login',
-            //     data: {
-            //         username: this.username,
-            //         password: this.password
-            //     },
-            //     responseType: 'json'
-            // }).then(
-            //     response => {
-            //         console.log(response.data)
-            //         if (response.data.isPermit) {
-            //             TODO: login succeed
-            //         } else {
-            //             alert('failed')
-            //         }
-            //     },
-            //     error => {
-            //         console.log(error)
-            //     }
-            // )
-
-            //#region login succeed
-            localStorage.setItem('loginState', 'true')
-            localStorage.setItem('username', this.username)
-            this.$router.replace({
-                name: 'main'
-            })
-            //#endregion
+            axios({
+                method: 'post',
+                url: config.serverUrl[config.testModel ? "testRoot" : "root"] +
+                    config.serverUrl.login,
+                data: {
+                    username: this.username,
+                    password: this.password
+                },
+                responseType: 'json'
+            }).then(
+                response => {
+                    if (response.data.isPermit) {
+                        localStorage.setItem('loginState', 'true')
+                        localStorage.setItem('username', this.username)
+                        this.$router.replace({
+                            name: 'main'
+                        })
+                    }
+                },
+                error => {
+                    console.log(error)
+                }
+            )
         },
         resetForm() {
             this.username = ''

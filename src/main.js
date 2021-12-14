@@ -1,3 +1,4 @@
+import 'animate.css'
 import Vue from 'vue'
 import {
     Avatar,

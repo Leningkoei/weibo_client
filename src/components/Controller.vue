@@ -4,105 +4,41 @@
             <el-input
                 class = 'input-with-select'
                 placeholder = 'keyword'
+                :disabled = 'state === "on"'
                 v-model = 'keyword'
+                @blur = 'sendKeyword'
             >
                 <el-select
                     slot = 'append'
                     placeholder = 'refresh break'
-                    :disabled = 'selectIsDisabled'
+                    :disabled = 'state === "on"'
                     v-model = 'refreshBreak'
                 >
                     <el-option
                         label = '1s'
-                        :value = '1'
+                        :value = '1000'
                     ></el-option>
                     <el-option
                         label = '2s'
-                        :value = '2'
+                        :value = '2000'
                     >
                     </el-option>
                 </el-select>
             </el-input>
         </div>
-        <!-- <transition-group
-            appear
-            name = 'animate__animated animate__bounce'
-            enter-active-class = 'animate__rubberBand'
-            leave-active-class = 'animate__backOutUp'
-        >
-            <el-button
-                type = 'success'
-                @click = 'turnOn'
-                v-if = 'state === "off"'
-                key = 'on'
-            >给👴爬</el-button>
-        </transition-group>
-            <div
-                style = 'height: 40px; width: 40px; display: inline-block'
-                v-if = '
-                    state === "on" ||
-                    state === "pause" ||
-                    state === "loadingOne"
-                '
-            >
-            <transition-group
-                appear
-                name = 'animate__animated animate__bounce'
-                enter-active-class = 'animate__rubberBand'
-                leave-active-class = 'animate__backOutUp'
-            >
-                <el-button
-                    type = 'warning'
-                    circle
-                    icon = 'el-icon-video-pause'
-                    @click = 'turnPause'
-                    v-if = 'state === "on"'
-                    key = 'pause'
-                ></el-button>
-                <el-button
-                    type = 'success'
-                    circle
-                    icon = 'el-icon-video-play'
-                    @click = 'turnOn'
-                    v-if = 'state === "pause"'
-                    key = 'continue'
-                ></el-button>
-            </transition-group>
-            </div>
-        <transition-group
-            appear
-            name = 'animate__animated animate__bounce'
-            enter-active-class = 'animate__rubberBand'
-            leave-active-class = 'animate__backOutUp'
-        >
-            <el-button
-                type = 'danger'
-                circle
-                icon = 'el-icon-switch-button'
-                @click = 'turnOff'
-                v-if = '
-                    state === "on" ||
-                    state === "pause" ||
-                    state === "loadingOne"
-                '
-                key = 'off'
-            ></el-button>
-        </transition-group>
-        <br>
-            <el-button
-                type = 'danger'
-                @click = 'clearTableData'
-            >clear log</el-button>
-        <el-time-picker
-            readonly
-            :value = 'time'
-        ></el-time-picker> -->
-        <Handset/>
+        <Handset
+
+            ref = 'handset'
+            :keyword = 'keyword'
+            :refreshBreak = 'refreshBreak'
+            :setState = 'setState'
+            :setDefaultRefreshBreak = 'setDefaultRefreshBreak'
+        />
     </div>
 </template>
 
 <script>
-import 'animate.css'
+import axios from 'axios'
 
 import Handset from './Handset.vue'
 
@@ -115,77 +51,27 @@ export default {
         return {
             keyword: '',
             refreshBreak: '',
-            state: 'off',
-            time: new Date(0, 0, 0, 0, 0, 0),
-            timeUpdateInterval: null,
-            tableDataUpdateInterval: null,
-            selectIsDisabled: false,
-            loadingTime: 1060
+            state: 'off'
         }
     },
     methods: {
-        turnOn() {
-            this.refreshBreak = this.refreshBreak || 1
-            this.state = this.state === 'off'
-                ? 'loading'
-                : 'loadingOne'
-            setTimeout(() => this.state = 'on', this.loadingTime)
-            this.timeUpdateInterval = setInterval(() => {
-                const second = this.time.getSeconds()
-                if (second === 60) {
-                    const minute = this.time.getMinutes()
-                    if (minute === 60) {
-                        // this.time.setHours(this.time.getHours() + 1)
-                        this.time = new Date(
-                            0, 0, 0,
-                            this.time.getHours() + 1,
-                            this.time.getMinutes(),
-                            this.time.getSeconds()
-                        )
-                    } else {
-                        // this.time.setMinutes(minute + 1)
-                        this.time = new Date(
-                            0, 0, 0,
-                            this.time.getHours(),
-                            minute + 1,
-                            this.time.getSeconds()
-                        )
-                    }
-                } else {
-                    // this.time.setSeconds(second + 1)
-                    this.time = new Date(
-                        0, 0, 0,
-                        this.time.getHours(),
-                        this.time.getMinutes(),
-                        second + 1
-                    )
-                }
-            }, 1000)
-            this.tableDataUpdateInterval = setInterval(() => {
-                this.$store.dispatch('TableData/insert')
-            }, this.refreshBreak * 1000)
-            this.selectIsDisabled = true
+        sendKeyword() {
+            if (this.keyword.trim()) {
+                axios({
+                    method: 'post',
+                    url: 'http://192.168.43.253:5000/ScarySina',
+                    data: {
+                        keyword: this.keyword
+                    },
+                    responseType: 'json'
+                })
+            }
         },
-        turnPause() {
-            this.state = 'loadingOne'
-            setTimeout(() => this.state = 'pause', this.loadingTime)
-            this.clearIntervals()
+        setState(state) {
+            this.state = state
         },
-        turnOff() {
-            this.state = 'loading'
-            setTimeout(() => this.state = 'off', this.loadingTime)
-            this.clearIntervals()
-            this.time = new Date(0, 0, 0, 0, 0, 0)
-            this.selectIsDisabled = false
-        },
-        clearTableData() {
-            this.$store.commit('TableData/CLEAR')
-        },
-        clearIntervals() {
-            clearInterval(this.timeUpdateInterval)
-            clearInterval(this.tableDataUpdateInterval)
-            this.timeUpdateInterval = null
-            this.tableDataUpdateInterval = null
+        setDefaultRefreshBreak() {
+            this.refreshBreak = 1000
         }
     }
 }
@@ -193,6 +79,7 @@ export default {
 
 <style lang = 'less' scoped>
 .controller {
+    width: 100%;    /* 50vw */
     /deep/ .input {
         margin: 32px;
         .el-input {

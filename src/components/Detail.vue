@@ -36,7 +36,7 @@ export default {
     data() {
         return {
             tableView: null,
-            tableDataMaxLength: 20
+            tableDataMaxLength: 100
         }
     },
     computed: {
@@ -46,7 +46,7 @@ export default {
                 const clientHeight = this.tableView.clientHeight
                 const scrollTop = this.tableView.scrollTop
                 const scrollHeight = this.tableView.scrollHeight
-                if (tableData.length > 20) {
+                if (tableData.length > this.tableDataMaxLength) {
                     tableData.shift()
                 }
                 if (clientHeight === scrollHeight - scrollTop) {
@@ -69,10 +69,10 @@ export default {
 
 <style lang = 'less' scoped>
 .detail {
-    margin: 32px;
+    margin: 2%;
     /deep/ .el-table {
         .el-table__body-wrapper {
-            max-height: 50vh;
+            max-height: 92vh;
             overflow-y: auto;
         }
     }

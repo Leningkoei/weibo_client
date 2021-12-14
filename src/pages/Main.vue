@@ -30,12 +30,16 @@ export default {
 
 <style lang = 'less' scoped>
 .main-page {
+    height: 100vh;
+    width: 100vw;
+        min-height: 800px;
     display: flex;
     flex-direction: row;
     /deep/ .left {
         background-color: red;
-        height: 100vh;
-        width: 50vw;
+        height: 100%;
+        width: 50%;
+        min-width: 444px;
         hr {
             margin-right: 0;
             margin-left: 0;
@@ -45,9 +49,8 @@ export default {
     }
     /deep/ .right {
         background-color: green;
-        height: 100vh;
-        width: 50vw;
+        height: 100%;
+        width: 50%;
     }
 }
-
 </style>
