@@ -41,6 +41,7 @@
 import axios from 'axios'
 
 import Handset from './Handset.vue'
+import config from '../config.js'
 
 export default {
     name: 'Controller',
@@ -57,14 +58,22 @@ export default {
     methods: {
         sendKeyword() {
             if (this.keyword.trim()) {
-                axios({
-                    method: 'post',
-                    url: 'http://192.168.43.253:5000/ScarySina',
-                    data: {
-                        keyword: this.keyword
-                    },
-                    responseType: 'json'
-                })
+                if (config.offlineModel) {
+                    // Nothing todo
+                } else {
+                    axios({
+                        method: 'post',
+                        // url: 'http://192.168.43.253:5000/ScarySina',
+                        url: config.serverUrl[config.LANModel
+                            ? "LANRoot"
+                            : "root"
+                        ] + config.serverUrl.setKeyword,
+                        data: {
+                            keyword: this.keyword
+                        },
+                        responseType: 'json'
+                    })
+                }
             }
         },
         setState(state) {

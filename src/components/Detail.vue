@@ -5,27 +5,14 @@
             stripe
             ref = 'table'
             :data = 'tableData'
+            @selection-change = "handleSelectionChange"
         >
-            <el-table-column
-                prop = 'keyword'
-                label = 'keyword'
-            ></el-table-column>
-            <el-table-column
-                prop = 'username'
-                label = 'username'
-            ></el-table-column>
-            <el-table-column
-                prop = 'sendTime'
-                label = 'sendTime'
-            ></el-table-column>
-            <el-table-column
-                prop = 'content'
-                label = 'content'
-            ></el-table-column>
-            <el-table-column
-                width = '16'
-                resizable: false
-            ></el-table-column>
+            <el-table-column type = "selection" />
+            <el-table-column prop = 'keyword' label = 'keyword' />
+            <el-table-column prop = 'username' label = 'username' />
+            <el-table-column prop = 'sendTime' label = 'sendTime' />
+            <el-table-column prop = 'content' label = 'content' />
+            <el-table-column width = '16' resizable: false />
         </el-table>
     </div>
 </template>
@@ -59,6 +46,16 @@ export default {
             } else {
                 return null
             }
+        }
+    },
+    methods: {
+        /**
+         * @param {Msg[]} selectedMsgs
+         */
+        handleSelectionChange(selectedMsgs) {
+            this.tableData.forEach((msg) => {
+                msg.isSelected = selectedMsgs.includes(msg)
+            })
         }
     },
     mounted() {

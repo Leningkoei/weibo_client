@@ -64,29 +64,39 @@ export default {
     },
     methods: {
         submitForm() {
-            axios({
-                method: 'post',
-                url: config.serverUrl[config.testModel ? "testRoot" : "root"] +
-                    config.serverUrl.login,
-                data: {
-                    username: this.username,
-                    password: this.password
-                },
-                responseType: 'json'
-            }).then(
-                response => {
-                    if (response.data.isPermit) {
-                        localStorage.setItem('loginState', 'true')
-                        localStorage.setItem('username', this.username)
-                        this.$router.replace({
-                            name: 'main'
-                        })
+            if (config.offlineModel) {
+                localStorage.setItem("loginState", "true")
+                localStorage.setItem("username", this.username)
+                this.$router.replace({
+                    name: "main"
+                })
+            } else {
+                axios({
+                    method: 'post',
+                    url: config.serverUrl[config.LANModel
+                        ? "LANRoot"
+                        : "root"
+                    ] + config.serverUrl.login,
+                    data: {
+                        username: this.username,
+                        password: this.password
+                    },
+                    responseType: 'json'
+                }).then(
+                    response => {
+                        if (response.data.isPermit) {
+                            localStorage.setItem('loginState', 'true')
+                            localStorage.setItem('username', this.username)
+                            this.$router.replace({
+                                name: 'main'
+                            })
+                        }
+                    },
+                    error => {
+                        console.log(error)
                     }
-                },
-                error => {
-                    console.log(error)
-                }
-            )
+                )
+            }
         },
         resetForm() {
             this.username = ''

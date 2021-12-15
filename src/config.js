@@ -1,9 +1,12 @@
 export default {
-    testModel: true,
+    offlineModel: false,
+    LANModel: false,
     serverUrl: {
+        LANRoot: "http://192.168.43.253:5000",
         root: "http://47.104.196.155:5020",
-        testRoot: "http://192.168.43.253:5000",
+        getOne: "/getOne",
         login: "/login",
-        getOne: "/getOne"
+        setKeyword: "/ScarySina",
+        endSearch: "/over"
     }
 }

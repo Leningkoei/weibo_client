@@ -72,6 +72,7 @@
 
 <script>
 import axios from 'axios'
+import config from '../config.js'
 export default {
     name: 'Handset',
     props: [ 'keyword', 'refreshBreak', 'setState', 'setDefaultRefreshBreak' ],
@@ -124,12 +125,19 @@ export default {
             this.setState('off')
             this.clearIntervals()
             ;[ this.hour, this.minute, this.second ] = [ 0, 0, 0 ]
-
-            axios({
-                method: 'get',
-                url: 'http://192.168.43.253:5000/over',
-                responseType: 'json'
-            })
+            if (config.offlineModel) {
+                // Nothing todo
+            } else {
+                axios({
+                    method: 'get',
+                    // url: 'http://192.168.43.253:5000/over',
+                    url: config.serverUrl[config.LANModel
+                        ? "LANRoot"
+                        : "root"
+                    ] + config.serverUrl.endSearch,
+                    responseType: 'json'
+                })
+            }
         },
         clearIntervals() {
             clearInterval(this.timeUpdateInterval)
