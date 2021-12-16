@@ -1,5 +1,5 @@
 export default {
-    offlineModel: false,
+    offlineModel: true,
     LANModel: false,
     serverUrl: {
         LANRoot: "http://192.168.43.253:5000",

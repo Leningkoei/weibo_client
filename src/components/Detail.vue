@@ -22,27 +22,40 @@ export default {
     name: 'Detail',
     data() {
         return {
-            tableView: null,
+            // tableView: null, -- (1)
             tableDataMaxLength: 100
         }
     },
     computed: {
         tableData() {
-            if (this.tableView) {
-                const tableData = this.$store.state.TableData.tableData
-                const clientHeight = this.tableView.clientHeight
-                const scrollTop = this.tableView.scrollTop
-                const scrollHeight = this.tableView.scrollHeight
-                if (tableData.length > this.tableDataMaxLength) {
-                    tableData.shift()
-                }
-                if (clientHeight === scrollHeight - scrollTop) {
-                    this.$nextTick(() => {
-                        this.tableView.scrollTop +=
-                            this.tableView.scrollHeight - scrollHeight
-                    })
-                }
-                return tableData
+            // (1) 耦合了检测 table data 的变化和滚动屏幕
+            // if (this.tableView) {
+            //     const tableData = this.$store.state.TableData.tableData
+            //     const clientHeight = this.tableView.clientHeight
+            //     const scrollTop = this.tableView.scrollTop
+            //     const scrollHeight = this.tableView.scrollHeight
+            //     if (tableData.length > this.tableDataMaxLength) {
+            //         tableData.shift()
+            //     }
+            //     if (clientHeight === scrollHeight - scrollTop) {
+            //         this.$nextTick(() => {
+            //             this.tableView.scrollTop +=
+            //                 this.tableView.scrollHeight - scrollHeight
+            //         })
+            //     }
+            //     return tableData
+            // } else {
+            //     return null
+            // }
+            const tableData = this.$store.state.TableData.tableData
+            if (tableData.length > this.tableDataMaxLength) {
+                tableData.shift()
+            }
+            return tableData
+        },
+        tableView() {
+            if (this.$refs.table) {
+                return this.$refs.table.$refs.bodyWrapper
             } else {
                 return null
             }
@@ -58,9 +71,23 @@ export default {
             })
         }
     },
-    mounted() {
-        this.tableView = this.$refs.table.$refs.bodyWrapper
+    watch: {
+        tableData() {
+            const clientHeight = this.tableView.clientHeight
+            const scrollTop = this.tableView.scrollTop
+            const scrollHeight = this.tableView.scrollHeight
+            if (clientHeight === scrollHeight - scrollTop) {
+                this.$nextTick(() => {
+                    this.tableView.scrollTop +=
+                        this.tableView.scrollHeight - scrollHeight
+                })
+            }
+        }
     }
+    // }, -- (1) -- 而且获取 table view 可以使用 computed
+    // mounted() {
+    //     // this.tableView = this.$refs.table.$refs.bodyWrapper
+    // }
 }
 </script>
 

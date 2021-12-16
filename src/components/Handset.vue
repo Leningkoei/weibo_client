@@ -14,10 +14,16 @@
                 >
                     <el-button
                         type = 'warning'
+                        :disabled =
+                            '$store.state.TableData.tableData.length === 0'
+                        @click = "clearSelectedLog"
                     >clear selected log</el-button>
                     <hr>
                     <el-button
                         type = 'danger'
+                        :disabled =
+                            '$store.state.TableData.tableData.length === 0'
+                        @click = "clearAllLog"
                     >clear all log</el-button>
                 </div>
                 <el-button
@@ -88,6 +94,17 @@ export default {
         }
     },
     methods: {
+        clearSelectedLog() {
+            /**
+             * @type {any[]} tableData
+             */
+            let tableData = this.$store.state.TableData.tableData
+            this.$store.state.TableData.tableData =
+                tableData.filter(msg => !msg.isSelected)
+        },
+        clearAllLog() {
+            this.$store.state.TableData.tableData = []
+        },
         turnOn() {
             this.state = 'loading'
             setTimeout(() => this.state = 'on', this.loadTimeOfChangeState)
