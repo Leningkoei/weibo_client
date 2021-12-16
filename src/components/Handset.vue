@@ -26,13 +26,22 @@
                         @click = "clearAllLog"
                     >clear all log</el-button>
                 </div>
-                <el-button
-                    circle
-                    type = 'danger'
-                    icon = 'el-icon-switch-button'
-                    :disabled = 'state === "off"'
-                    @click = 'turnOff'
-                ></el-button>
+                <div>
+                    <el-button
+                        circle
+                        type = 'danger'
+                        icon = 'el-icon-switch-button'
+                        :disabled = 'state === "off"'
+                        @click = 'turnOff'
+                    />
+                    <hr>
+                    <el-button
+                        circle
+                        type = 'primary'
+                        icon = 'el-icon-search'
+                        @click = 'callDrawer'
+                    />
+                </div>
             </div>
             <div class = 'main-button'>
                 <transition-group
@@ -73,15 +82,26 @@
                 </transition-group>
             </div>
         </div>
+        <el-drawer
+            title = 'Search keyword'
+            :visible.sync = 'drawer'
+        >
+            <Searcher />
+        </el-drawer>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
 import config from '../config.js'
+import Searcher from '../components/Searcher.vue'
+
 export default {
     name: 'Handset',
     props: [ 'keyword', 'refreshBreak', 'setState', 'setDefaultRefreshBreak' ],
+    components: {
+        Searcher
+    },
     data() {
         return {
             state: 'off',
@@ -90,7 +110,8 @@ export default {
             second: 0,
             timeUpdateInterval: null,
             tableDataUpdateInterval: null,
-            loadTimeOfChangeState: 500
+            loadTimeOfChangeState: 500,
+            drawer: false
         }
     },
     methods: {
@@ -161,6 +182,9 @@ export default {
             clearInterval(this.tableDataUpdateInterval)
             this.timeUpdateInterval = null
             this.tableDataUpdateInterval = null
+        },
+        callDrawer() {
+            this.drawer = true
         }
     }
 }

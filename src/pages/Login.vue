@@ -15,23 +15,12 @@
                     </div>
                 </div>
             </transition>
-            <el-form
-                label-width = '100px'
-            >
-                <el-form-item
-                    label = 'Username'
-                >
-                    <el-input
-                        v-model = 'username'
-                    />
+            <el-form label-width = '100px'>
+                <el-form-item label = 'Username'>
+                    <el-input v-model = 'username' />
                 </el-form-item>
-                <el-form-item
-                    label = 'Password'
-                >
-                    <el-input
-                        type = 'password'
-                        v-model = 'password'
-                    />
+                <el-form-item label = 'Password'>
+                    <el-input type = 'password' v-model = 'password' />
                 </el-form-item>
                 <el-form-item>
                     <el-button

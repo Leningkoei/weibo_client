@@ -5,6 +5,7 @@ import {
     Button,
     Descriptions,
     DescriptionsItem,
+    Drawer,
     Form,
     FormItem,
     Input,
@@ -25,6 +26,7 @@ Vue.component(Avatar.name, Avatar)
 Vue.component(Button.name, Button)
 Vue.component(Descriptions.name, Descriptions)
 Vue.component(DescriptionsItem.name, DescriptionsItem)
+Vue.component(Drawer.name, Drawer)
 Vue.component(Form.name, Form)
 Vue.component(FormItem.name, FormItem)
 Vue.component(Input.name, Input)

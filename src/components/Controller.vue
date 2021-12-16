@@ -14,15 +14,8 @@
                     :disabled = 'state === "on"'
                     v-model = 'refreshBreak'
                 >
-                    <el-option
-                        label = '1s'
-                        :value = '1000'
-                    ></el-option>
-                    <el-option
-                        label = '2s'
-                        :value = '2000'
-                    >
-                    </el-option>
+                    <el-option label = '1s' :value = '1000' />
+                    <el-option label = '2s' :value = '2000' />
                 </el-select>
             </el-input>
         </div>

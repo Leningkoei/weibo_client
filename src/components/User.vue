@@ -1,9 +1,5 @@
 <template>
     <div class = 'user'>
-        <!-- <el-avatar
-            :size = '96'
-            :src = 'require("../assets/default_avatar.jpg")'
-        ></el-avatar> -->
         <el-descriptions
             title = 'User Info'
             border
