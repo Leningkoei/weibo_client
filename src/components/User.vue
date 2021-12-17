@@ -14,11 +14,11 @@
                 <el-avatar
                     :size = '48'
                     :src = 'require("../assets/default_avatar.jpg")'
-                ></el-avatar>
+                />
             </el-descriptions-item>
             <el-descriptions-item>
                 <template slot = 'label'>
-                    <i class = 'el-icon-user'></i>
+                    <i class = 'el-icon-user' />
                     Username
                 </template>
                 {{username}}
@@ -57,7 +57,11 @@ export default {
 
 <style lang = 'less' scoped>
 .user {
-    height: 144px;
-    margin: 32px;
+    height: 16%;
+    min-height: 144px;
+    margin: 16px;
+    padding: 16px;
+    background-color: rgba(219, 223, 238, 0.64);
+    border-radius: 8px;
 }
 </style>

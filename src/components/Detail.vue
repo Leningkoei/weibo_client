@@ -1,7 +1,7 @@
 <template>
     <div class = 'detail'>
         <el-table
-            style = 'width: 100%'
+            style = 'width: 100%; min-width: 960px;'
             border
             stripe
             ref = 'table'
@@ -15,30 +15,35 @@
                         label-position = 'right'
                         label-width = '160px'
                     >
-                        <el-form-item label = 'user id'>
-                            <span>{{props.row.userId}}</span>
-                        </el-form-item>
-                        <el-form-item label = 'user type'>
-                            <span>{{props.row.userType}}</span>
-                        </el-form-item>
-                        <el-form-item label = 'setout type'>
-                            <span>{{props.row.setoutType}}</span>
-                        </el-form-item>
-                        <el-form-item label = 'origin url'>
-                            <span>{{props.row.originUrl}}</span>
-                        </el-form-item>
-                        <el-form-item label = 'attitude count'>
-                            <span>{{props.row.attitudeCount}}</span>
-                        </el-form-item>
-                        <el-form-item label = 'comment count'>
-                            <span>{{props.row.commentCount}}</span>
-                        </el-form-item>
-                        <el-form-item label = 'forward count'>
-                            <span>{{props.row.forwardCount}}</span>
-                        </el-form-item>
-                        <el-form-item label = 'scary date'>
-                            <span>{{props.row.scaryDate}}</span>
-                        </el-form-item>
+                        <div>
+                            <el-form-item label = 'user id'>
+                                <span>{{props.row.userId}}</span>
+                            </el-form-item>
+                            <el-form-item label = 'user type'>
+                                <span>{{props.row.userType}}</span>
+                            </el-form-item>
+                            <el-form-item label = 'setout type'>
+                                <span>{{props.row.setoutType}}</span>
+                            </el-form-item>
+                            <el-form-item label = 'origin url'>
+                                <span>{{props.row.originUrl}}</span>
+                            </el-form-item>
+                        </div>
+                        <hr>
+                        <div>
+                            <el-form-item label = 'attitude count'>
+                                <span>{{props.row.attitudeCount}}</span>
+                            </el-form-item>
+                            <el-form-item label = 'comment count'>
+                                <span>{{props.row.commentCount}}</span>
+                            </el-form-item>
+                            <el-form-item label = 'forward count'>
+                                <span>{{props.row.forwardCount}}</span>
+                            </el-form-item>
+                            <el-form-item label = 'scary date'>
+                                <span>{{props.row.scaryDate}}</span>
+                            </el-form-item>
+                        </div>
                     </el-form>
                 </template>
             </el-table-column>
@@ -56,13 +61,14 @@
                 prop = 'username'
             />
             <el-table-column
-                prop = 'sendTime'
                 label = 'send time'
-                align = 'center'
                 width = 192
+                align = 'center'
+                prop = 'sendTime'
             />
             <el-table-column
                 label = 'content'
+                min-width = '240'
                 prop = 'content'
             />
             <el-table-column width = '16' resizable: false />
@@ -148,12 +154,14 @@ export default {
 .detail {
     width: 96%;
     margin: 2%;
+    opacity: 88%;
     /deep/ .el-table {
         .el-table__header-wrapper {
             table {
                 thead {
                     tr {
                         th {
+                            background-color: #e8e8e8;
                             text-align: center;
                         }
                     }
@@ -161,16 +169,28 @@ export default {
             }
         }
         .el-table__body-wrapper {
-            max-height: 92vh;
+            max-height: 88vh;
             overflow-y: auto;
         }
     }
 }
 .form {
-    /deep/ .el-form-item {
-        label {
-            color: #99a9bf;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    /deep/ div {
+        .el-form-item {
+            label {
+                color: #99a9bf;
+            }
         }
+    }
+    hr {
+        width: 1px;
+        border-style: none;
+        background-color: #e8e8e8;
+        /* margin: 0 32px; */
+        margin: 0 0 0 32px;
     }
 }
 </style>

@@ -103,7 +103,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     background-image: url(../assets/background.png);
-    /deep/ .login {
+    .login {
         margin: -28vh auto 0 auto;
         display: flex;
         flex-direction: column;
@@ -146,7 +146,7 @@ export default {
                 }
             }
         }
-        .el-form {
+        /deep/ .el-form {
             padding-right: 32px;
             .el-input {
                 input {

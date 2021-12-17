@@ -19,20 +19,20 @@
                 </el-select>
             </el-input>
         </div>
-        <Handset
-
-            ref = 'handset'
-            :keyword = 'keyword'
-            :refreshBreak = 'refreshBreak'
-            :setState = 'setState'
-            :setDefaultRefreshBreak = 'setDefaultRefreshBreak'
-        />
+        <div class = 'handset-docker'>
+            <Handset
+                ref = 'handset'
+                :keyword = 'keyword'
+                :refreshBreak = 'refreshBreak'
+                :setState = 'setState'
+                :setDefaultRefreshBreak = 'setDefaultRefreshBreak'
+            />
+        </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
-
 import Handset from './Handset.vue'
 import config from '../config.js'
 
@@ -81,14 +81,27 @@ export default {
 
 <style lang = 'less' scoped>
 .controller {
+    height: 72%;
     width: 100%;    /* 50vw */
-    /deep/ .input {
-        margin: 32px;
-        .el-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    .input {
+        width: 80%;
+        /* margin: 32px; */
+        /* padding: 32px; */
+        margin: 32px auto 0 auto;
+        /deep/ .el-input {
             .el-select {
                 width: 144px;
             }
         }
+    }
+    .handset-docker {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }
 </style>

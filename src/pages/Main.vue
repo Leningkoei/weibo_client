@@ -1,12 +1,12 @@
 <template>
     <div class = 'main-page'>
         <div class = 'left'>
-            <User/>
+            <User />
             <hr>
-            <Controller/>
+            <Controller />
         </div>
         <div class = 'right'>
-            <Detail/>
+            <Detail />
         </div>
     </div>
 </template>
@@ -32,14 +32,17 @@ export default {
 .main-page {
     height: 100vh;
     width: 100vw;
-        min-height: 800px;
+    min-height: 800px;
+    min-width: 1440px;
     display: flex;
     flex-direction: row;
-    /deep/ .left {
-        background-color: red;
+    background-image: url(../assets/desk.jpg);
+    background-size: cover;
+    .left {
+        /* background-color: red; */
         height: 100%;
-        width: 50%;
-        min-width: 444px;
+        /* width: 50%; */
+        width: 32%;
         hr {
             margin-right: 0;
             margin-left: 0;
@@ -47,10 +50,12 @@ export default {
             border-left: 0;
         }
     }
-    /deep/ .right {
-        background-color: green;
+    .right {
+        /* background-color: green; */
         height: 100%;
-        width: 50%;
+        /* width: 50%; */
+        width: 68%;
+        min-width: 960px;
     }
 }
 </style>

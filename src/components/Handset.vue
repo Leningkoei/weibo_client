@@ -83,7 +83,7 @@
             </div>
         </div>
         <el-drawer
-            title = 'Search keyword'
+            size = '68%'
             :visible.sync = 'drawer'
         >
             <Searcher />
@@ -194,7 +194,8 @@ export default {
 .handset {
     height: 444px;  /* 48vh */
     width: 288px;   /* 32% */
-    margin: 32px;
+    /* margin: 32px; */
+    margin: 0 auto;
     border-radius: 16px;
     background-color: #cecece;
     box-shadow:
@@ -212,7 +213,9 @@ export default {
         align-items: center;
         .el-date-editor {
             .el-input__inner {
+                background-color: #578800;
                 text-align: center;
+                color: #000000;
                 font-size: 32px;
                 font-family: 'Courier New', Courier, monospace;
             }

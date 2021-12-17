@@ -1,4 +1,5 @@
 import 'animate.css'
+import './assets/Catull_BQ_Regular.css'
 import Vue from 'vue'
 import {
     Avatar,
@@ -15,10 +16,9 @@ import {
     TableColumn,
     TimePicker
 } from 'element-ui'
-
+import App from './App.vue'
 import store from './store/index.js'
 import router from './router/index.js'
-import App from './App.vue'
 
 Vue.config.productionTip = false
 
