@@ -1,5 +1,20 @@
 export default class Msg {
 
+    /**
+     *
+     * @param {string} keyword
+     * @param {string} username
+     * @param {string} sendTime
+     * @param {string} content
+     * @param {string} userId
+     * @param {string} userType
+     * @param {string} setoutType
+     * @param {string} originUrl
+     * @param {string} attitudeCount
+     * @param {string} commentCount
+     * @param {string} forwardCount
+     * @param {string} scaryDate
+     */
     constructor(
         keyword,        // 关键词
         username,       // 用户名
@@ -26,5 +41,22 @@ export default class Msg {
         this.commentCount = commentCount
         this.forwardCount = forwardCount
         this.scaryDate = scaryDate
+    }
+
+    static turnResponseDataToMsg(responseData) {
+        return new Msg(
+            responseData.keyword,
+            responseData.user_screen_name,
+            responseData.created_at_time,
+            responseData.title_content,
+            responseData.user_id,
+            responseData.user_type,
+            responseData.phone_source,
+            responseData.title_address,
+            responseData.attitudes_count,
+            responseData.comment_count,
+            responseData.forward_count,
+            responseData.scary_date
+        )
     }
 }

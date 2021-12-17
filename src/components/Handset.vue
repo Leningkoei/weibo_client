@@ -54,6 +54,7 @@
                         circle
                         type = 'success'
                         key = 'on'
+                        :disabled = 'keyword === ""'
                         v-if = 'state === "off"'
                         @click = 'turnOn'
                     >给<span

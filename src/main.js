@@ -11,6 +11,7 @@ import {
     FormItem,
     Input,
     Option,
+    Pagination,
     Select,
     Table,
     TableColumn,
@@ -31,6 +32,7 @@ Vue.component(Form.name, Form)
 Vue.component(FormItem.name, FormItem)
 Vue.component(Input.name, Input)
 Vue.component(Option.name, Option)
+Vue.component(Pagination.name, Pagination)
 Vue.component(Select.name, Select)
 Vue.component(Table.name, Table)
 Vue.component(TableColumn.name, TableColumn)

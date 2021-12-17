@@ -52,11 +52,23 @@
 
     - method = get
 
-    - require data
+    - require params
 
         - keyword: string
 
     - response data: Msg.prototype[]
+
+- downloadData
+
+    - path = /down
+
+    - method = get
+
+    - require params
+
+        - keyword: string
+
+    - response: File
 
 ## Dependent
 
@@ -75,6 +87,12 @@
 - Handset.vue
 
     - setKeyword
+
+- Searcher.vue
+
+    - searchKeyword
+
+    - downloadData
 
 ## Models
 

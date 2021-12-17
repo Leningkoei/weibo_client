@@ -20,7 +20,7 @@
                 border
                 stripe
                 ref = 'table'
-                :data = 'searchResult'
+                :data = 'currentData'
             >
                 <el-table-column type = 'expand'>
                     <template slot-scope = 'props'>
@@ -29,39 +29,45 @@
                             label-position = 'right'
                             label-width = '160px'
                         >
-                            <div>
-                                <el-form-item label = 'user id'>
-                                    <span>{{props.row.userId}}</span>
-                                </el-form-item>
-                                <el-form-item label = 'user type'>
-                                    <span>{{props.row.userType}}</span>
-                                </el-form-item>
-                                <el-form-item label = 'setout type'>
-                                    <span>{{props.row.setoutType}}</span>
-                                </el-form-item>
-                                <el-form-item label = 'origin url'>
-                                    <span>{{props.row.originUrl}}</span>
+                            <div class = 'content'>
+                                <el-form-item label = 'content:'>
+                                    <span>{{props.row.content}}</span>
                                 </el-form-item>
                             </div>
-                            <hr>
-                            <div>
-                                <el-form-item label = 'attitude count'>
-                                    <span>{{props.row.attitudeCount}}</span>
-                                </el-form-item>
-                                <el-form-item label = 'comment count'>
-                                    <span>{{props.row.commentCount}}</span>
-                                </el-form-item>
-                                <el-form-item label = 'forward count'>
-                                    <span>{{props.row.forwardCount}}</span>
-                                </el-form-item>
-                                <el-form-item label = 'scary date'>
-                                    <span>{{props.row.scaryDate}}</span>
-                                </el-form-item>
+                            <div class = 'other'>
+                                <div>
+                                    <el-form-item label = 'user id:'>
+                                        <span>{{props.row.userId}}</span>
+                                    </el-form-item>
+                                    <el-form-item label = 'user type:'>
+                                        <span>{{props.row.userType}}</span>
+                                    </el-form-item>
+                                    <el-form-item label = 'setout type:'>
+                                        <span>{{props.row.setoutType}}</span>
+                                    </el-form-item>
+                                    <el-form-item label = 'origin url:'>
+                                        <span>{{props.row.originUrl}}</span>
+                                    </el-form-item>
+                                </div>
+                                <hr>
+                                <div>
+                                    <el-form-item label = 'attitude count:'>
+                                        <span>{{props.row.attitudeCount}}</span>
+                                    </el-form-item>
+                                    <el-form-item label = 'comment count:'>
+                                        <span>{{props.row.commentCount}}</span>
+                                    </el-form-item>
+                                    <el-form-item label = 'forward count:'>
+                                        <span>{{props.row.forwardCount}}</span>
+                                    </el-form-item>
+                                    <el-form-item label = 'scary date:'>
+                                        <span>{{props.row.scaryDate}}</span>
+                                    </el-form-item>
+                                </div>
                             </div>
                         </el-form>
                     </template>
                 </el-table-column>
-                <el-table-column type = 'selection' align = 'center' />
                 <el-table-column
                     label = 'keyword'
                     width = 128
@@ -70,7 +76,7 @@
                 />
                 <el-table-column
                     label = 'username'
-                    width = 128
+                    min-width = '160'
                     align = 'center'
                     prop = 'username'
                 />
@@ -81,119 +87,103 @@
                     prop = 'sendTime'
                 />
                 <el-table-column
-                    label = 'content'
+                    label = 'preview'
                     min-width = '240'
-                    prop = 'content'
+                    prop = 'preview'
                 />
-                <el-table-column width = '16' resizable: false />
             </el-table>
         </div>
+        <div class = 'pagination'>
+            <el-pagination
+                layout = 'prev, pager, next'
+                :total = 'pageCount'
+                @current-change = 'turnPage'
+            />
+        </div>
+        <a href="http://192.168.43.253:5000/down">download these data</a>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+import config from '../config.js'
+import Msg from '../model/Msg.js'
+
 export default {
     name: 'Searcher',
     data() {
         return {
             keyword: '',
-            searchResult: [
-                {
-                    isSelected: false,
-                    keyword: '南无',
-                    username: '陈南平',
-                    sendTime: '1919/08/10/11:45:14',
-                    content: 'NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL',
-                    userId: 'This is a user id',
-                    userType: 'This is a user type',
-                    setoutType: 'This is a setout type',
-                    originUrl: 'This is a origin url',
-                    attitudeCount: 'This is a attitude count',
-                    commentCount: 'This is a comment count',
-                    forwardCount: 'This is a forward count',
-                    scaryDate: 'This is a scary date'
-                },
-                {
-                    isSelected: false,
-                    keyword: '南无',
-                    username: '陈南平',
-                    sendTime: '1919/08/10/11:45:14',
-                    content: 'NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL',
-                    userId: 'This is a user id',
-                    userType: 'This is a user type',
-                    setoutType: 'This is a setout type',
-                    originUrl: 'This is a origin url',
-                    attitudeCount: 'This is a attitude count',
-                    commentCount: 'This is a comment count',
-                    forwardCount: 'This is a forward count',
-                    scaryDate: 'This is a scary date'
-                },
-                {
-                    isSelected: false,
-                    keyword: '南无',
-                    username: '陈南平',
-                    sendTime: '1919/08/10/11:45:14',
-                    content: 'NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL',
-                    userId: 'This is a user id',
-                    userType: 'This is a user type',
-                    setoutType: 'This is a setout type',
-                    originUrl: 'This is a origin url',
-                    attitudeCount: 'This is a attitude count',
-                    commentCount: 'This is a comment count',
-                    forwardCount: 'This is a forward count',
-                    scaryDate: 'This is a scary date'
-                },
-                {
-                    isSelected: false,
-                    keyword: '南无',
-                    username: '陈南平',
-                    sendTime: '1919/08/10/11:45:14',
-                    content: 'NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL',
-                    userId: 'This is a user id',
-                    userType: 'This is a user type',
-                    setoutType: 'This is a setout type',
-                    originUrl: 'This is a origin url',
-                    attitudeCount: 'This is a attitude count',
-                    commentCount: 'This is a comment count',
-                    forwardCount: 'This is a forward count',
-                    scaryDate: 'This is a scary date'
-                },
-                {
-                    isSelected: false,
-                    keyword: '南无',
-                    username: '陈南平',
-                    sendTime: '1919/08/10/11:45:14',
-                    content: 'NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL',
-                    userId: 'This is a user id',
-                    userType: 'This is a user type',
-                    setoutType: 'This is a setout type',
-                    originUrl: 'This is a origin url',
-                    attitudeCount: 'This is a attitude count',
-                    commentCount: 'This is a comment count',
-                    forwardCount: 'This is a forward count',
-                    scaryDate: 'This is a scary date'
-                },
-                {
-                    isSelected: false,
-                    keyword: '南无',
-                    username: '陈南平',
-                    sendTime: '1919/08/10/11:45:14',
-                    content: 'NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL',
-                    userId: 'This is a user id',
-                    userType: 'This is a user type',
-                    setoutType: 'This is a setout type',
-                    originUrl: 'This is a origin url',
-                    attitudeCount: 'This is a attitude count',
-                    commentCount: 'This is a comment count',
-                    forwardCount: 'This is a forward count',
-                    scaryDate: 'This is a scary date'
-                }
-            ]
+            searchResult: [],
+            currentData: [],
+            pageDataCount: 10
+        }
+    },
+    computed: {
+        pageCount() {
+            return Math.ceil(this.searchResult.length / this.pageDataCount) * 10
         }
     },
     methods: {
         searchKeyword() {
-            // TODO
+            if (config.offlineModel) {
+                for (let i = 0; i < 100; i++) {
+                    const msg = new Msg(
+                        '南无',
+                        '陈南平陈南平陈南平陈南平陈南平',
+                        '1919/08/10/11:45:14',
+                        'NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL ' +
+                        'NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL ' +
+                        'NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL ' +
+                        'NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL NMSL' ,
+                        'This is a user id',
+                        'This is a user type',
+                        'This is a setout type',
+                        'This is a origin url',
+                        'This is a attitude count',
+                        'This is a comment count',
+                        'This is a forward count',
+                        'This is a scary date'
+                    )
+                    msg.preview = msg.content.length >= 24
+                        ? msg.content.substr(0, 24) + '...'
+                        : msg.content
+                    this.searchResult.push(msg)
+                }
+                this.turnPage(1)
+            } else {
+                const search = axios({
+                    method: 'get',
+                    url: config.serverUrl[config.LANModel
+                        ? 'LANRoot'
+                        : 'root'
+                    ] + '/queryKeyword',
+                    params: {
+                        keyword: this.keyword
+                    },
+                    responseType: 'json'
+                })
+                this.searchResult = []
+                search.then(response => {
+                    const dataSet = response.data.data
+                    for (const data of dataSet) {
+                        const msg = Msg.turnResponseDataToMsg(data)
+                        msg.preview = msg.content.length >= 24
+                            ? msg.content.substr(0, 24) + '...'
+                            : msg.content
+                        this.searchResult.push(msg)
+                    }
+                    this.turnPage(1)
+                }).catch(err => {
+                    alert(err)
+                })
+            }
+        },
+        turnPage(currentPage) {
+            this.currentData = [ ...this.searchResult ].splice(
+                (currentPage - 1) * this.pageDataCount,
+                this.pageDataCount
+            )
         }
     }
 }
@@ -201,6 +191,8 @@ export default {
 
 <style lang = 'less' scoped>
 .searcher {
+    display: flex;
+    flex-direction: column;
     .logo {
         display: flex;
         flex-direction: row;
@@ -229,7 +221,13 @@ export default {
             transform: rotate(-24deg)
         }
     }
+    .input {
+        width: 480px;
+        margin: 32px auto;
+    }
     .detail {
+        width: 80%;
+        margin: 0 auto;
         /deep/ .el-table {
             .el-table__header-wrapper {
                 table {
@@ -244,29 +242,58 @@ export default {
                 }
             }
             .el-table__body-wrapper {
-                max-height: 88vh;
+                max-height: 50vh;
                 overflow-y: auto;
             }
+            .el-table__body-wrapper::-webkit-scrollbar {
+                width: 0;
+            }
         }
+    }
+    .pagination {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        .el-pagination {
+            flex: 5;
+            text-align: center;
+        }
+    }
+    a {
+        margin-right: 10%;
+        flex: 1;
+        text-align: right;
     }
 }
 .form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
-    div {
-        .el-form-item {
+    .content {
+        /deep/ .el-form-item {
             label {
                 color: #99a9bf;
             }
         }
     }
-    hr {
-        width: 1px;
-        border-style: none;
-        background-color: #e8e8e8;
-        /* margin: 0 32px; */
-        margin: 0 0 0 32px;
+    .other {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        div {
+            /deep/ .el-form-item {
+                label {
+                    color: #99a9bf;
+                }
+            }
+        }
+        hr {
+            width: 1px;
+            border-style: none;
+            background-color: #e8e8e8;
+            /* margin: 0 32px; */
+            margin: 0 0 0 32px;
+        }
     }
 }
 </style>

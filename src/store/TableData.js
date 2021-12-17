@@ -5,7 +5,7 @@ import Msg from '../model/Msg.js'
 export default {
     namespaced: true,
     actions: {
-        insert(context, keyword) {
+        insert(context) {
             if (config.offlineModel) {
                 const msg = new Msg(
                     '南无',
@@ -32,20 +32,15 @@ export default {
                         : 'root'
                     ] + config.serverUrl.getOne,
                     responseType: 'json'
-                }).then(
-                    response => {
-                        context.commit('INSERT', new Msg(
-                            false,
-                            keyword,
-                            response.data.user_screen_name,
-                            response.data.create_at_time,
-                            response.data.title_content
-                        ))
-                    },
-                    err => {
-                        alert(err)
-                    }
-                )
+                }).then(response => {
+                    console.log(response.data)
+                    const msg = Msg.turnResponseDataToMsg(response.data)
+                    msg.isSelected = false
+                    console.log(msg)
+                    context.commit('INSERT', msg)
+                }).catch(err => {
+                    alert(err)
+                })
             }
         }
     },

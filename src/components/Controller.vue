@@ -11,7 +11,7 @@
                 <el-select
                     slot = 'append'
                     placeholder = 'refresh break'
-                    :disabled = 'state === "on"'
+                    :disabled = 'state === "on" || state === "pause"'
                     v-model = 'refreshBreak'
                 >
                     <el-option label = '1s' :value = '1000' />
