@@ -1,6 +1,6 @@
 export default {
-    offlineModel: true,
-    LANModel: true,
+    offlineModel: false,
+    LANModel: false,
     server: {
         address: 'http://47.104.196.155:5020',
         LANAddress: 'http://192.168.43.253:5000'

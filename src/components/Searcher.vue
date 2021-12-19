@@ -7,6 +7,15 @@
         </div>
         <div class = 'input'>
             <el-input v-model = 'keyword'>
+                <el-select
+                    placeholder = 'page data count'
+                    slot = 'prepend'
+                    v-model = 'pageDataCount'
+                >
+                    <el-option label = '5 rows' :value = '5' />
+                    <el-option label = '8 rows' :value = '8' />
+                    <el-option label = '10 rows' :value = '10' />
+                </el-select>
                 <el-button
                     slot = 'append'
                     icon = 'el-icon-search'
@@ -100,7 +109,7 @@
                 @current-change = 'turnPage'
             />
         </div>
-        <a href="http://192.168.43.253:5000/down">download these data</a>
+        <a href="http://47.104.196.155:5020/down">download these data</a>
     </div>
 </template>
 
@@ -152,7 +161,8 @@ export default {
                 }
                 this.turnPage(1)
             } else {
-                const search = axios({
+                this.searchResult = []
+                axios({
                     method: 'get',
                     url: config.serverUrl[config.LANModel
                         ? 'LANRoot'
@@ -162,10 +172,8 @@ export default {
                         keyword: this.keyword
                     },
                     responseType: 'json'
-                })
-                this.searchResult = []
-                search.then(response => {
-                    const dataSet = response.data.data
+                }).then(res => {
+                    const dataSet = res.data.data
                     for (const data of dataSet) {
                         const msg = Msg.turnResponseDataToMsg(data)
                         msg.preview = msg.content.length >= 24
@@ -184,6 +192,11 @@ export default {
                 (currentPage - 1) * this.pageDataCount,
                 this.pageDataCount
             )
+        }
+    },
+    watch: {
+        pageDataCount() {
+            this.turnPage(1)
         }
     }
 }
@@ -224,6 +237,13 @@ export default {
     .input {
         width: 480px;
         margin: 32px auto;
+        /deep/ .el-input {
+            .el-input-group__prepend {
+                .el-select {
+                    width: 100px;
+                }
+            }
+        }
     }
     .detail {
         width: 80%;
@@ -254,15 +274,41 @@ export default {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        .el-pagination {
-            flex: 5;
-            text-align: center;
+        /deep/ .el-pagination {
+            button {
+                color: #bdc1c6;
+                background-color: #35363a;
+            }
+            button:hover, button:disabled {
+                color: #409eff;
+            }
+            button:hover {
+                text-decoration: underline;
+            }
+            ul {
+                li {
+                    color: #bdc1c6;
+                    background-color: #35363a;
+                }
+                li:hover {
+                    color: #409eff;
+                    text-decoration: underline;
+                }
+                .active {
+                    color: #409eff;
+                }
+            }
         }
     }
     a {
         margin-right: 10%;
+        color: #8ab4f8;
+        text-decoration: none;
         flex: 1;
         text-align: right;
+    }
+    a:hover {
+        text-decoration: underline;
     }
 }
 .form {

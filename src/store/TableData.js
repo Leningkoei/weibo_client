@@ -32,11 +32,9 @@ export default {
                         : 'root'
                     ] + config.serverUrl.getOne,
                     responseType: 'json'
-                }).then(response => {
-                    console.log(response.data)
-                    const msg = Msg.turnResponseDataToMsg(response.data)
+                }).then(res => {
+                    const msg = Msg.turnResponseDataToMsg(res.data)
                     msg.isSelected = false
-                    console.log(msg)
                     context.commit('INSERT', msg)
                 }).catch(err => {
                     alert(err)

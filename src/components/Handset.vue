@@ -145,11 +145,8 @@ export default {
                 }
             }, 1000)
             this.tableDataUpdateInterval = setInterval(() => {
-                this.$store.dispatch(
-                    'TableData/insert',
-                    this.keyword
-                )
-            }, this.refreshBreak || 1000)
+                this.$store.dispatch('TableData/insert')
+            }, this.refreshBreak || 3000)
             this.refreshBreak || this.setDefaultRefreshBreak()
         },
         turnPause() {
@@ -274,6 +271,9 @@ export default {
                 font-size: 50px;
             }
         }
+    }
+    /deep/ .el-drawer {
+        background-color: #35363a;
     }
 }
 </style>

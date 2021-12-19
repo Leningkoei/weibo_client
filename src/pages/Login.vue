@@ -71,20 +71,17 @@ export default {
                         password: this.password
                     },
                     responseType: 'json'
-                }).then(
-                    response => {
-                        if (response.data.isPermit) {
-                            localStorage.setItem('loginState', 'true')
-                            localStorage.setItem('username', this.username)
-                            this.$router.replace({
-                                name: 'main'
-                            })
-                        }
-                    },
-                    error => {
-                        console.log(error)
+                }).then(response => {
+                    if (response.data.isPermit) {
+                        localStorage.setItem('loginState', 'true')
+                        localStorage.setItem('username', this.username)
+                        this.$router.replace({
+                            name: 'main'
+                        })
                     }
-                )
+                }).catch(err => {
+                    alert(err)
+                })
             }
         },
         resetForm() {

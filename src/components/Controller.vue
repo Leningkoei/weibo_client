@@ -4,18 +4,18 @@
             <el-input
                 class = 'input-with-select'
                 placeholder = 'keyword'
-                :disabled = 'state === "on"'
+                :disabled = 'state === "on" || state === "pause"'
                 v-model = 'keyword'
                 @blur = 'sendKeyword'
             >
                 <el-select
-                    slot = 'append'
                     placeholder = 'refresh break'
-                    :disabled = 'state === "on" || state === "pause"'
+                    slot = 'append'
+                    :disabled = 'state === "on"'
                     v-model = 'refreshBreak'
                 >
-                    <el-option label = '1s' :value = '1000' />
                     <el-option label = '2s' :value = '2000' />
+                    <el-option label = '3s' :value = '3000' />
                 </el-select>
             </el-input>
         </div>
@@ -73,7 +73,7 @@ export default {
             this.state = state
         },
         setDefaultRefreshBreak() {
-            this.refreshBreak = 1000
+            this.refreshBreak = 3000
         }
     }
 }
