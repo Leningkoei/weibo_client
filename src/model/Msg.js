@@ -1,7 +1,7 @@
 export default class Msg {
 
     /**
-     *
+     * @param {string} count
      * @param {string} keyword
      * @param {string} username
      * @param {string} sendTime
@@ -16,6 +16,7 @@ export default class Msg {
      * @param {string} scaryDate
      */
     constructor(
+        count,          // 计数
         keyword,        // 关键词
         username,       // 用户名
         sendTime,       // 发送时间
@@ -29,6 +30,8 @@ export default class Msg {
         forwardCount,   // 转发次数
         scaryDate       // 爬取时间
     ) {
+        console.log(count)
+        this.count = count !== undefined ? count + 1 : '...'
         this.keyword = keyword
         this.username = username
         this.sendTime = sendTime
@@ -45,6 +48,7 @@ export default class Msg {
 
     static turnResponseDataToMsg(responseData) {
         return new Msg(
+            responseData.count,
             responseData.keyword,
             responseData.user_screen_name,
             responseData.created_at_time,
@@ -59,4 +63,18 @@ export default class Msg {
             responseData.scary_date
         )
     }
+
+    count = null
+    keyword = null
+    username = null
+    sendTime = null
+    content = null
+    userId = null
+    userType = null
+    setoutType = null
+    originUrl = null
+    attitudeCount = null
+    commentCount = null
+    forwardCount = null
+    scaryDate = null
 }

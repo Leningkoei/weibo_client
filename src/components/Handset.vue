@@ -99,7 +99,13 @@ import Searcher from '../components/Searcher.vue'
 
 export default {
     name: 'Handset',
-    props: [ 'keyword', 'refreshBreak', 'setState', 'setDefaultRefreshBreak' ],
+    props: [
+        'keyword',
+        'setKeyword',
+        'refreshBreak',
+        'setState',
+        'setDefaultRefreshBreak'
+    ],
     components: {
         Searcher
     },
@@ -112,7 +118,8 @@ export default {
             timeUpdateInterval: null,
             tableDataUpdateInterval: null,
             loadTimeOfChangeState: 500,
-            drawer: false
+            drawer: false,
+            count: 0
         }
     },
     methods: {
@@ -145,9 +152,27 @@ export default {
                 }
             }, 1000)
             this.tableDataUpdateInterval = setInterval(() => {
-                this.$store.dispatch('TableData/insert')
+                this.$store.dispatch('TableData/insert', ++this.count)
             }, this.refreshBreak || 3000)
             this.refreshBreak || this.setDefaultRefreshBreak()
+
+            if (this.keyword.trim()) {
+                if (config.offlineModel) {
+                    // Nothing todo
+                } else {
+                    axios({
+                        method: 'post',
+                        url: config.serverUrl[config.LANModel
+                            ? 'LanRoot'
+                            : 'root'
+                        ] + config.serverUrl.setKeyword,
+                        data: {
+                            keyword: this.keyword
+                        },
+                        responseType: 'json'
+                    })
+                }
+            }
         },
         turnPause() {
             this.state = 'loading'
@@ -184,6 +209,33 @@ export default {
         callDrawer() {
             this.drawer = true
         }
+    },
+    mounted() {
+        axios({
+            method: 'get',
+            url: 'http://47.104.196.155:5020/facetemp',
+            responseType: 'json'
+        }).then(res => {
+            /**
+             * res.data = {
+             *     isOk: boolean
+             *     keyword: string
+             *     hour: number
+             *     minute: number
+             *     second: number
+             * }
+             */
+            if (res.data.isOk) {
+                const keyword = res.data.keyword
+                this.setKeyword(keyword)
+                this.hour = res.data.hour - 8
+                this.minute = res.data.minute
+                this.second = res.data.second
+                this.turnOn()
+            } else {
+                // Nothing todo
+            }
+        })
     }
 }
 </script>

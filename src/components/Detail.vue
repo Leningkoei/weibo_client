@@ -49,20 +49,26 @@
             </el-table-column>
             <el-table-column type = 'selection' align = 'center' />
             <el-table-column
+                label = 'count'
+                width = '64'
+                align = 'center'
+                prop = 'count'
+            />
+            <el-table-column
                 label = 'keyword'
-                width = 128
+                width = '128'
                 align = 'center'
                 prop = 'keyword'
             />
             <el-table-column
                 label = 'username'
-                width = 128
+                width = '128'
                 align = 'center'
                 prop = 'username'
             />
             <el-table-column
                 label = 'send time'
-                width = 192
+                width = '192'
                 align = 'center'
                 prop = 'sendTime'
             />
@@ -169,7 +175,9 @@ export default {
             }
         }
         .el-table__body-wrapper {
-            max-height: 88vh;
+            /* max-height: 88vh; */
+            height: 88vh;
+            background-color: rgba(219, 223, 238, 0.64);
             overflow-y: auto;
         }
     }

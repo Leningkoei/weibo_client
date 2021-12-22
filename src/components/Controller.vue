@@ -6,7 +6,6 @@
                 placeholder = 'keyword'
                 :disabled = 'state === "on" || state === "pause"'
                 v-model = 'keyword'
-                @blur = 'sendKeyword'
             >
                 <el-select
                     placeholder = 'refresh break'
@@ -23,6 +22,7 @@
             <Handset
                 ref = 'handset'
                 :keyword = 'keyword'
+                :setKeyword = 'setKeyword'
                 :refreshBreak = 'refreshBreak'
                 :setState = 'setState'
                 :setDefaultRefreshBreak = 'setDefaultRefreshBreak'
@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import Handset from './Handset.vue'
-import config from '../config.js'
+// import config from '../config.js'
 
 export default {
     name: 'Controller',
@@ -49,31 +49,35 @@ export default {
         }
     },
     methods: {
-        sendKeyword() {
-            if (this.keyword.trim()) {
-                if (config.offlineModel) {
-                    // Nothing todo
-                } else {
-                    axios({
-                        method: 'post',
-                        // url: 'http://192.168.43.253:5000/ScarySina',
-                        url: config.serverUrl[config.LANModel
-                            ? "LANRoot"
-                            : "root"
-                        ] + config.serverUrl.setKeyword,
-                        data: {
-                            keyword: this.keyword
-                        },
-                        responseType: 'json'
-                    })
-                }
-            }
-        },
+        // @blur
+        // sendKeyword() {
+        //     if (this.keyword.trim()) {
+        //         if (config.offlineModel) {
+        //             // Nothing todo
+        //         } else {
+        //             axios({
+        //                 method: 'post',
+        //                 // url: 'http://192.168.43.253:5000/ScarySina',
+        //                 url: config.serverUrl[config.LANModel
+        //                     ? "LANRoot"
+        //                     : "root"
+        //                 ] + config.serverUrl.setKeyword,
+        //                 data: {
+        //                     keyword: this.keyword
+        //                 },
+        //                 responseType: 'json'
+        //             })
+        //         }
+        //     }
+        // },
         setState(state) {
             this.state = state
         },
         setDefaultRefreshBreak() {
             this.refreshBreak = 3000
+        },
+        setKeyword(keyword) {
+            this.keyword = keyword
         }
     }
 }

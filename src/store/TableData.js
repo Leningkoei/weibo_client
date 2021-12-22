@@ -5,7 +5,7 @@ import Msg from '../model/Msg.js'
 export default {
     namespaced: true,
     actions: {
-        insert(context) {
+        insert(context, count) {
             if (config.offlineModel) {
                 const msg = new Msg(
                     '南无',
@@ -22,6 +22,7 @@ export default {
                     'This is a scary date'
                 )
                 msg.isSelected = false
+                msg.count = count
                 context.commit('INSERT', msg)
             } else {
                 axios({

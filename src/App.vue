@@ -7,8 +7,6 @@
 <script>
 export default {
     name: 'App',
-    components: {
-    },
     beforeCreate() {
         if (localStorage.getItem('loginState')) {
             if (this.$route.name !== 'main') {

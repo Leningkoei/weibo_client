@@ -104,6 +104,7 @@
         </div>
         <div class = 'pagination'>
             <el-pagination
+                ref = 'pagination'
                 layout = 'prev, pager, next'
                 :total = 'pageCount'
                 @current-change = 'turnPage'
@@ -196,6 +197,7 @@ export default {
     },
     watch: {
         pageDataCount() {
+            this.$refs.pagination.currentPage = 1
             this.turnPage(1)
         }
     }
@@ -319,6 +321,9 @@ export default {
         /deep/ .el-form-item {
             label {
                 color: #99a9bf;
+            }
+            .el-form-item__content {
+                margin-right: 32px;
             }
         }
     }
